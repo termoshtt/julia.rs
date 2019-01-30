@@ -3477,12 +3477,7 @@ impl _jl_taggedvalue_bits {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub struct _jl_taggedvalue_t {
-    pub __bindgen_anon_1: _jl_taggedvalue_t__bindgen_ty_1,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub union _jl_taggedvalue_t__bindgen_ty_1 {
+pub union _jl_taggedvalue_t {
     pub header: usize,
     pub next: *mut jl_taggedvalue_t,
     pub type_: *mut jl_value_t,
@@ -3492,59 +3487,51 @@ pub union _jl_taggedvalue_t__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout__jl_taggedvalue_t__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<_jl_taggedvalue_t__bindgen_ty_1>(),
+        ::std::mem::size_of::<_jl_taggedvalue_t>(),
         8usize,
-        concat!("Size of: ", stringify!(_jl_taggedvalue_t__bindgen_ty_1))
+        concat!("Size of: ", stringify!(_jl_taggedvalue_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<_jl_taggedvalue_t__bindgen_ty_1>(),
+        ::std::mem::align_of::<_jl_taggedvalue_t>(),
         8usize,
-        concat!("Alignment of ", stringify!(_jl_taggedvalue_t__bindgen_ty_1))
+        concat!("Alignment of ", stringify!(_jl_taggedvalue_t))
     );
     assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_jl_taggedvalue_t__bindgen_ty_1>())).header as *const _ as usize
-        },
+        unsafe { &(*(::std::ptr::null::<_jl_taggedvalue_t>())).header as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
-            stringify!(_jl_taggedvalue_t__bindgen_ty_1),
+            stringify!(_jl_taggedvalue_t),
             "::",
             stringify!(header)
         )
     );
     assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_jl_taggedvalue_t__bindgen_ty_1>())).next as *const _ as usize
-        },
+        unsafe { &(*(::std::ptr::null::<_jl_taggedvalue_t>())).next as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
-            stringify!(_jl_taggedvalue_t__bindgen_ty_1),
+            stringify!(_jl_taggedvalue_t),
             "::",
             stringify!(next)
         )
     );
     assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_jl_taggedvalue_t__bindgen_ty_1>())).type_ as *const _ as usize
-        },
+        unsafe { &(*(::std::ptr::null::<_jl_taggedvalue_t>())).type_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
-            stringify!(_jl_taggedvalue_t__bindgen_ty_1),
+            stringify!(_jl_taggedvalue_t),
             "::",
             stringify!(type_)
         )
     );
     assert_eq!(
-        unsafe {
-            &(*(::std::ptr::null::<_jl_taggedvalue_t__bindgen_ty_1>())).bits as *const _ as usize
-        },
+        unsafe { &(*(::std::ptr::null::<_jl_taggedvalue_t>())).bits as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
-            stringify!(_jl_taggedvalue_t__bindgen_ty_1),
+            stringify!(_jl_taggedvalue_t),
             "::",
             stringify!(bits)
         )
