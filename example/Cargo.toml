@@ -1,8 +1,11 @@
 [package]
-name = "julia"
+name = "example"
 version = "0.1.0"
 authors = ["Toshiki Teramura <toshiki.teramura@gmail.com>"]
 edition = "2018"
 
-[dependencies.julia-sys]
-path = "../julia-sys"
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies.julia]
+path = "../julia"

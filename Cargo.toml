@@ -1,6 +1,7 @@
 [workspace]
 members = [
   "julia",
-  "julia-sys"
+  "julia-sys",
+  "example"
 ]
 
