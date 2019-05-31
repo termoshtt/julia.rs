@@ -2,7 +2,7 @@ use failure::*;
 use std::path::PathBuf;
 use std::{env, process::Command};
 
-fn get_julia_cflags() -> Fallible<Vec<String>> {
+fn get_julia_config() -> Fallible<PathBuf> {
     let out = Command::new("julia")
         .args(&[
             "-e",
@@ -15,7 +15,11 @@ fn get_julia_cflags() -> Fallible<Vec<String>> {
     }
 
     let jl_share_path = PathBuf::from(std::str::from_utf8(&out.stdout)?);
-    let config = jl_share_path.join("julia-config.jl");
+    Ok(jl_share_path.join("julia-config.jl"))
+}
+
+fn get_julia_cflags() -> Fallible<Vec<String>> {
+    let config = get_julia_config()?;
     let out = Command::new(config)
         .arg("--cflags")
         .output()
@@ -26,6 +30,29 @@ fn get_julia_cflags() -> Fallible<Vec<String>> {
     let flags = std::str::from_utf8(&out.stdout)?
         .split(' ')
         .map(|s| s.replace("'", "").trim().into())
+        .collect();
+    Ok(flags)
+}
+
+fn get_julia_ldflags() -> Fallible<Vec<String>> {
+    let config = get_julia_config()?;
+    let out = Command::new(config)
+        .arg("--ldflags")
+        .output()
+        .expect("julia-config.jl command is not found");
+    if !out.status.success() {
+        bail!("Failed to generate ldflags",);
+    }
+    let flags = std::str::from_utf8(&out.stdout)?
+        .split(' ')
+        .flat_map(|s| {
+            let flag = s.replace("'", "").trim().to_string();
+            if flag.starts_with("-L") {
+                Some(flag[2..].into())
+            } else {
+                None
+            }
+        })
         .collect();
     Ok(flags)
 }
@@ -45,6 +72,9 @@ fn main() -> Fallible<()> {
         .write_to_file(out_path.join("bindings.rs"))
         .expect("Couldn't write bindings!");
 
+    for libdir in get_julia_ldflags()? {
+        println!("cargo:rustc-link-search=native={}", libdir);
+    }
     println!("cargo:rustc-link-lib=julia");
     Ok(())
 }
