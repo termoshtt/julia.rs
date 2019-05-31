@@ -4,7 +4,7 @@ steps:
   - script: |
       curl -sSf https://sh.rustup.rs | sh -s -- -y
       echo "##vso[task.setvariable variable=PATH;]$PATH:$HOME/.cargo/bin"
-    displayName: install rustup
+    displayName: 'Install stable Rust'
 
   - script: |
       curl -LO https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.1-linux-x86_64.tar.gz
@@ -16,4 +16,4 @@ steps:
 
   - script: |
       cargo test
-    displayName: run test
+    displayName: 'Rust Test'
