@@ -2,6 +2,9 @@ use failure::*;
 use std::path::PathBuf;
 use std::{env, process::Command};
 
+// Seek Julia based on the document "Embedded Julia"
+//
+// https://docs.julialang.org/en/v1/manual/embedding/index.html
 fn get_julia_config() -> Fallible<PathBuf> {
     let out = Command::new("julia")
         .args(&[
