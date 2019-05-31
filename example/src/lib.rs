@@ -1,4 +1,4 @@
-use julia_sys::*;
+use julia::*;
 
 #[no_mangle]
 pub extern "C" fn make_twice_array(ptr: *mut jl_value_t) {
