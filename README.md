@@ -1,5 +1,7 @@
 # julia.rs
-Rust binding to Julia
+[![Build Status](https://dev.azure.com/termoshtt/julia.rs/_apis/build/status/termoshtt.julia.rs?branchName=master)](https://dev.azure.com/termoshtt/julia.rs/_build/latest?definitionId=4&branchName=master)
+
+WIP: Rust binding to Julia
 
 Run example
 -----------
