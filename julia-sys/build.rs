@@ -8,19 +8,20 @@ fn get_julia_cflags() -> Fallible<Vec<String>> {
             "-e",
             r#"print(joinpath(Sys.BINDIR,Base.DATAROOTDIR,"julia"))"#,
         ])
-        .output()?;
+        .output()
+        .expect("julia command is not found");
     if !out.status.success() {
-        bail!("julia command does not found ({})", out.status);
+        bail!("Cannot determine Julia share path ({})", out.status);
     }
 
     let jl_share_path = PathBuf::from(std::str::from_utf8(&out.stdout)?);
     let config = jl_share_path.join("julia-config.jl");
-    let out = Command::new(config).arg("--cflags").output()?;
+    let out = Command::new(config)
+        .arg("--cflags")
+        .output()
+        .expect("julia-config.jl command is not found");
     if !out.status.success() {
-        bail!(
-            "julia-config.jl command does not found at {}",
-            jl_share_path.display()
-        );
+        bail!("Failed to generate cflags",);
     }
     let flags = std::str::from_utf8(&out.stdout)?
         .split(' ')
