@@ -79,5 +79,6 @@ fn main() -> Fallible<()> {
         println!("cargo:rustc-link-search=native={}", libdir);
     }
     println!("cargo:rustc-link-lib=julia");
+    println!("cargo:rustc-cdylib-link-arg=-Wl,--export-dynamic");
     Ok(())
 }
