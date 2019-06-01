@@ -7,5 +7,5 @@ edition = "2018"
 [lib]
 crate-type = ["cdylib"]
 
-[dependencies.julia-sys]
-path = "../julia-sys"
+[dependencies.julia]
+path = "../julia"
