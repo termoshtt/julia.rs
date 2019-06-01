@@ -77,8 +77,9 @@ fn main() -> Fallible<()> {
 
     for libdir in get_julia_ldflags()? {
         println!("cargo:rustc-link-search=native={}", libdir);
+        println!("cargo:rustc-link-search=native={}/julia", libdir);
     }
     println!("cargo:rustc-link-lib=julia");
-    println!("cargo:rustc-cdylib-link-arg=-Wl,--export-dynamic");
+    println!("cargo:rustc-link-lib=LLVM");
     Ok(())
 }
